@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Apex — Dealer Data Platform</title>
+<meta name="description" content="Apex gives dealers a clear read on inventory value, comps, and pricing signal — all in one place." />
+<style>
+  :root {
+    --ink: #14233A;
+    --ink-2: #33455E;
+    --muted: #5A6B82;
+    --muted-2: #7A8698;
+    --faint: #8894A6;
+    --line: #E1E7EF;
+    --line-2: #EEF2F7;
+    --panel: #FFFFFF;
+    --bg: #EDF1F6;
+    --accent: #22C55E;
+    --accent-ink: #06210F;
+    --bad: #EF4444;
+    --sidebar: #16191F;
+    --r-lg: 18px;
+    --r-md: 12px;
+    --r-sm: 8px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: Archivo, system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "tnum" 1;
+    min-height: 100vh;
+  }
+
+  a { color: inherit; }
+
+  .wrap {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 0;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: -0.04em;
+  }
+
+  .mark {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mark svg { display: block; }
+
+  nav a {
+    text-decoration: none;
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 14px;
+    margin-left: 24px;
+  }
+
+  main.hero {
+    padding: 64px 0 48px;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    color: var(--faint);
+    margin-bottom: 14px;
+  }
+
+  h1 {
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: -.035em;
+    line-height: 1.1;
+    margin: 0 0 18px;
+    max-width: 760px;
+  }
+
+  .sub {
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 0 32px;
+  }
+
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .btn {
+    padding: 13px 24px;
+    border-radius: var(--r-sm);
+    border: 1px solid var(--accent);
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-weight: 800;
+    font-size: 15px;
+    font-family: inherit;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn.ghost {
+    background: var(--panel);
+    color: var(--ink);
+    border-color: var(--line);
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    margin: 56px 0;
+  }
+
+  .stat {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 16px 18px;
+  }
+
+  .stat .label {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--faint);
+  }
+
+  .stat .v {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -.025em;
+    margin-top: 6px;
+  }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 28px 30px;
+    margin-bottom: 24px;
+  }
+
+  .panel h2 {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -.02em;
+    margin: 0 0 10px;
+  }
+
+  .panel p {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  footer {
+    padding: 32px 0 48px;
+    color: var(--faint);
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <span class="brand">
+        <span class="mark">
+          <svg width="20" height="20" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <path d="M9 22 L16 10 L23 22" stroke="#06210F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+        apex
+      </span>
+      <nav>
+        <a href="/sign-in">Sign in</a>
+        <a href="/sign-up">Sign up</a>
+      </nav>
+    </header>
+
+    <main class="hero">
+      <div class="eyebrow">Dealer data, made legible</div>
+      <h1>Know what your lot is worth, before your customers do.</h1>
+      <p class="sub">
+        Apex pulls live comps, market pricing, and inventory signal into one
+        place, so dealers can price with confidence instead of guesswork.
+      </p>
+      <div class="cta-row">
+        <a class="btn" href="/sign-up">Get started</a>
+        <a class="btn ghost" href="/sign-in">Sign in</a>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="label">Comps tracked</div>
+          <div class="v">1.2M+</div>
+        </div>
+        <div class="stat">
+          <div class="label">Markets covered</div>
+          <div class="v">All 50 states</div>
+        </div>
+        <div class="stat">
+          <div class="label">Refresh</div>
+          <div class="v">Daily</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Pricing signal, not spreadsheets</h2>
+        <p>
+          Every unit on your lot gets a live valuation, backed by comps pulled
+          from the wider market, so you can spot underpriced and overpriced
+          inventory at a glance.
+        </p>
+      </div>
+
+      <div class="panel">
+        <h2>Built for how dealers actually work</h2>
+        <p>
+          Apex is designed around the yard, the deal desk, and the front
+          office — clean tables, tabular numbers, and answers that load fast
+          enough to use during a walkaround.
+        </p>
+      </div>
+    </main>
+
+    <footer>
+      &copy; Apex Dealer Data. All rights reserved.
+    </footer>
+  </div>
+</body>
+</html>
