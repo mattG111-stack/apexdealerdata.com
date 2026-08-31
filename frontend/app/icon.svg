@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 91" width="96" height="91">
-  <mask id="m" maskUnits="userSpaceOnUse" x="0" y="0" width="96" height="91">
-    <polygon points="48,0 96,36.4 96,91 0,91 0,36.4" fill="#fff"/>
-    <polygon points="48,8 91,39.2 91,86 5,86 5,39.2" fill="#000"/>
-    <rect x="32" y="51" width="32" height="40" fill="#fff"/>
-    <rect x="37" y="56" width="22" height="35" fill="#000"/>
-  </mask>
-  <rect width="96" height="91" fill="#16181A" mask="url(#m)"/>
-</svg>
