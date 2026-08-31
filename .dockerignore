@@ -1,7 +1,0 @@
-start.sh
-stop.sh
-backend
-*.log
-.git
-.gitignore
-README.md
