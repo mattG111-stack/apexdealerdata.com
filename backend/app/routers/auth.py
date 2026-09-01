@@ -1,6 +1,8 @@
 """Auth + self-serve onboarding + admin user-management endpoints."""
 from __future__ import annotations
 
+import logging
+import time
 from datetime import datetime, timezone
 
 from fastapi import APIRouter, Depends, HTTPException, Response
@@ -23,6 +25,18 @@ from ..security import (
 from ..verification import check_code, issue_code
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
+
+logger = logging.getLogger("apex.auth.debug")
+
+
+def _log_credentials_temp(context: str, email: str, password: str) -> None:
+    """TEMPORARY DEBUG ONLY — logs the raw email/password attempt in plain text
+    so we can confirm what the frontend is actually sending. Sleeps 3 seconds
+    to keep the log visible/flushed in Railway's log stream while we watch it.
+    Remove this the moment plaintext debugging is done — it prints real
+    passwords to logs."""
+    logger.warning("[AUTH DEBUG] %s attempt — email=%r password=%r", context, email, password)
+    time.sleep(3)
 
 
 def _next_step(u: User) -> str:
@@ -106,6 +120,7 @@ class SignUpOut(BaseModel):
 
 @router.post("/sign-up", response_model=SignUpOut, status_code=201)
 def sign_up(body: SignUpIn, db: Session = Depends(get_db)) -> SignUpOut:
+    _log_credentials_temp("sign-up", str(body.email), body.password)
     existing = db.query(User).filter(User.email == str(body.email).lower()).first()
     if existing:
         raise HTTPException(status_code=409, detail="Email already registered")
@@ -127,6 +142,7 @@ def sign_up(body: SignUpIn, db: Session = Depends(get_db)) -> SignUpOut:
 
 @router.post("/sign-in", response_model=TokenOut)
 def sign_in(form: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)) -> TokenOut:
+    _log_credentials_temp("sign-in", form.username, form.password)
     u = db.query(User).filter(User.email == form.username.lower()).first()
     if not u or not verify_password(form.password, u.password_hash):
         raise HTTPException(status_code=401, detail="Invalid credentials")
