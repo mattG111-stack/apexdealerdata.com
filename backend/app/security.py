@@ -16,12 +16,27 @@ from .models import User, UserRole, UserStatus
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2 = OAuth2PasswordBearer(tokenUrl="/api/auth/sign-in", auto_error=True)
 
+# ---------------------------------------------------------------------------
+# TEMPORARY DEBUG MODE — DO NOT LEAVE ENABLED IN PRODUCTION.
+#
+# Controlled by the PLAINTEXT_MODE env var (settings.plaintext_mode). When on,
+# passwords are stored and compared as plain text, completely bypassing
+# bcrypt/passlib. This is here only to isolate whether 401s on sign-up/sign-in
+# are caused by password hashing or by something else in the auth flow (CORS,
+# missing user, wrong endpoint, etc). Turn PLAINTEXT_MODE off — and re-hash any
+# passwords stored while it was on — before shipping to real users.
+# ---------------------------------------------------------------------------
+
 
 def hash_password(password: str) -> str:
+    if settings.plaintext_mode:
+        return password
     return pwd_context.hash(password)
 
 
 def verify_password(plain: str, hashed: str) -> bool:
+    if settings.plaintext_mode:
+        return plain == hashed
     return pwd_context.verify(plain, hashed)
 
 

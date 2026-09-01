@@ -36,6 +36,15 @@ class Settings(BaseSettings):
     twilio_from_number: str = ""
     verify_code_ttl_minutes: int = 15              # how long an email/phone code stays valid
 
+    # --- TEMPORARY DEBUG FLAG -----------------------------------------------
+    # When true, password hashing is bypassed entirely (passwords are stored
+    # and compared as plain text). This exists ONLY to isolate whether 401s on
+    # sign-up/sign-in are caused by bcrypt/passlib or by something else in the
+    # auth flow (CORS, missing user, wrong endpoint, etc). MUST be turned off
+    # (and existing plaintext passwords re-hashed) before going back to
+    # production. See backend/app/security.py for where this is consumed.
+    plaintext_mode: bool = False
+
     @property
     def cors_origin_list(self) -> list[str]:
         return [s.strip() for s in self.cors_origins.split(",") if s.strip()]
